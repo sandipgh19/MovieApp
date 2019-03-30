@@ -18,7 +18,7 @@ versions.gson="2.7"
 versions.constraint_layout="1.1.0-beta1"
 versions.multidex="1.0.1"
 versions.glide="3.7.0"
-versions.navigation = "1.0.0-alpha03"
+versions.navigation = "1.0.0-alpha06"
 def deps = [:]
 
 def support = [:]

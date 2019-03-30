@@ -30,7 +30,7 @@ class AppModule {
     fun provideDatabaseModule(application: Application): AppDatabase {
         return Room.databaseBuilder(
             application,
-            AppDatabase::class.java, "multibhashiJokesRoomDatabase"
+            AppDatabase::class.java, "moviesRoomDatabase"
         )
             .fallbackToDestructiveMigration()
             .build()
@@ -73,7 +73,7 @@ class AppModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         okHttpClient.sslSocketFactory()
         return Retrofit.Builder()
-            .baseUrl("http://api.icndb.com/")
+            .baseUrl("https://api.themoviedb.org/3/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())

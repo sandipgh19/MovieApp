@@ -4,13 +4,13 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import sandip.example.com.databinding.data.AppDao
-import sandip.example.com.databinding.objects.CategoryResponse
-import sandip.example.com.databinding.objects.ValueItem
+import sandip.example.com.databinding.objects.MovieDetailsResponse
+import sandip.example.com.databinding.objects.MovieListItem
 
 @Database(
     entities = [
-        (CategoryResponse::class),
-        (ValueItem::class)],
+        (MovieListItem::class),
+        (MovieDetailsResponse::class)],
     version = 1, exportSchema = false
 )
 @TypeConverters(DataConverter::class)
