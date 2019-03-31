@@ -8,11 +8,9 @@ import android.databinding.DataBindingComponent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import sandip.example.com.databinding.MainActivity
 
 import sandip.example.com.databinding.R
 import sandip.example.com.databinding.adapter.MovieListAdapter
@@ -24,6 +22,8 @@ import sandip.example.com.databinding.utils.helperUtils.autoCleared
 import sandip.example.com.databinding.utils.remoteUtils.Status
 import sandip.example.com.databinding.viewModel.MovieListViewModel
 import javax.inject.Inject
+import android.view.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -43,6 +43,11 @@ class MovieListFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +59,13 @@ class MovieListFragment : Fragment(), Injectable {
             false,
             databindingComponents)
 
+        val actionBar = (activity as MainActivity).supportActionBar
+        actionBar?.let{
+            it.title = getString(R.string.popular_movies)
+            it.setDisplayHomeAsUpEnabled(false)
+            it.setDisplayShowHomeEnabled(false)
+        }
+
         return binding.root
     }
 
@@ -63,8 +75,11 @@ class MovieListFragment : Fragment(), Injectable {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(MovieListViewModel::class.java)
 
-        adapter = MovieListAdapter(dataBindingComponent = databindingComponents, appExecutors = executors) {item->
+        adapter = MovieListAdapter(dataBindingComponent = databindingComponents, appExecutors = executors) {item ->
 
+            navController().navigate(
+                MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(item.id, item.title)
+            )
 
         }
 
@@ -102,6 +117,11 @@ class MovieListFragment : Fragment(), Injectable {
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu, menu)
+    }
+
     private fun startProgress() {
         activity?.window?.setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -112,6 +132,8 @@ class MovieListFragment : Fragment(), Injectable {
     private fun endProgress() {
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
+
+    private fun navController() = findNavController()
 
 
 }

@@ -26,7 +26,7 @@ data class MovieDetailsResponse(
 	var backdropPath: String? = null,
 
 	@field:SerializedName("revenue")
-	var revenue: Double? = null,
+	var revenue: Int? = null,
 
 	@field:SerializedName("popularity")
 	var popularity: Double? = null,
@@ -35,7 +35,7 @@ data class MovieDetailsResponse(
 	var voteCount: Double? = null,
 
 	@field:SerializedName("budget")
-	var budget: Double? = null,
+	var budget: Int? = null,
 
 	@field:SerializedName("overview")
 	var overview: String? = null,
@@ -44,7 +44,7 @@ data class MovieDetailsResponse(
 	var originalTitle: String? = null,
 
 	@field:SerializedName("runtime")
-	var runtime: Double? = null,
+	var runtime: String? = null,
 
 	@field:SerializedName("poster_path")
 	var posterPath: String? = null,
@@ -65,5 +65,8 @@ data class MovieDetailsResponse(
 	var homepage: String? = null,
 
 	@field:SerializedName("status")
-	var status: String? = null
+	var status: String? = null,
+
+	@field:SerializedName("genres")
+	var genres: MutableList<MovieGenres?>? = null
 )

@@ -8,7 +8,7 @@ import sandip.example.com.databinding.objects.MovieListItem
 @Dao
 interface AppDao {
 
-    @Query("SELECT * from movie_list")
+    @Query("SELECT * from movie_list order by popularity desc")
     fun fetchMovieList(): LiveData<List<MovieListItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

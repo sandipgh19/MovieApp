@@ -35,7 +35,7 @@ data class MovieListItem(
 	var releaseDate: String? = null,
 
 	@field:SerializedName("vote_average")
-	var voteAverage: String? = null,
+	var voteAverage: Double? = null,
 
 	@field:SerializedName("popularity")
 	var popularity: Double? = null,

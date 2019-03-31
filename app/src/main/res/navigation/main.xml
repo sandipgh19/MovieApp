@@ -13,5 +13,6 @@
               android:name="sandip.example.com.databinding.fragments.MovieDetailsFragment"
               android:label="fragment_movie_details" tools:layout="@layout/fragment_movie_details">
         <argument android:name="entryID" app:argType="integer"/>
+        <argument android:name="title" app:argType="string" app:nullable="true"/>
     </fragment>
 </navigation>

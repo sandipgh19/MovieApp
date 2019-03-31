@@ -6,168 +6,221 @@
 
     <data>
 
+        <import type="sandip.example.com.databinding.utils.remoteUtils.Status"/>
+
         <variable name="item" type="sandip.example.com.databinding.objects.MovieDetailsResponse"/>
+
+        <variable
+                name="resource"
+                type="sandip.example.com.databinding.utils.remoteUtils.Resource"/>
+
+        <variable name="count" type="Integer"/>
+
+        <variable name="converter" type="sandip.example.com.databinding.helper.ConverterUtils"/>
 
     </data>
 
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/guideline"/>
-
-        <TextView android:id="@+id/overview"
-                  android:layout_width="0dp" android:layout_height="wrap_content"
-                  app:layout_constraintTop_toBottomOf="@id/guideline"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  tools:text="@string/app_name"
-                  style="@style/Base.TextAppearance.AppCompat.Caption"
-                  android:layout_margin="@dimen/card_raised_elevation"/>
-
-        <TextView android:id="@+id/minutes"
-                  style="@style/Base.TextAppearance.AppCompat.Subhead"
-                  android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toBottomOf="@id/overview"
-                  app:layout_constraintEnd_toStartOf="@id/release_date"
-                  android:layout_margin="@dimen/activity_horizontal_margin"
-                  tools:text="142 minutes"/>
-
-        <TextView android:id="@+id/release_date"
-                  style="@style/Base.TextAppearance.AppCompat.Subhead"
-                  android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  app:layout_constraintTop_toBottomOf="@id/overview"
-                  app:layout_constraintStart_toEndOf="@id/minutes"
-                  app:layout_constraintEnd_toStartOf="@id/rating"
-                  android:layout_margin="@dimen/activity_horizontal_margin"
-                  tools:text="21 April 2018"/>
-
-        <FrameLayout android:id="@+id/rating"
-                     android:layout_width="0dp" android:layout_height="wrap_content"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                     android:layout_marginRight="@dimen/activity_horizontal_margin"
-                     app:layout_constraintStart_toEndOf="@id/release_date"
-                     app:layout_constraintTop_toTopOf="@id/minutes">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="9.3"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@android:color/white"
-                    style="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:paddingLeft="@dimen/card_raised_elevation"
-                    android:paddingStart="@dimen/card_raised_elevation"
-                    android:paddingEnd="@dimen/card_raised_elevation"
-                    android:paddingRight="@dimen/card_raised_elevation"
-                    android:gravity="end"
-                    android:layout_gravity="end"/>
-
-
-        </FrameLayout>
-
-
-        <TextView android:id="@+id/category"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  app:layout_constraintStart_toStartOf="@id/minutes"
-                  app:layout_constraintTop_toBottomOf="@id/rating"
-                  app:layout_constraintEnd_toStartOf="@id/language"
-                  android:layout_marginTop="@dimen/activity_horizontal_margin"
-                  tools:text="Drama"/>
-
-        <TextView android:id="@+id/language" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  app:layout_constraintEnd_toEndOf="@id/rating"
-                  app:layout_constraintTop_toTopOf="@id/category"
-                  android:paddingLeft="@dimen/card_raised_elevation"
-                  android:paddingStart="@dimen/card_raised_elevation"
-                  android:paddingEnd="@dimen/card_raised_elevation"
-                  android:paddingRight="@dimen/card_raised_elevation"
-                  android:gravity="end"
-                  android:background="@android:color/holo_red_light"
-                  tools:text="EN"
-                  android:textColor="@android:color/white"/>
-
-        <android.support.v7.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="@dimen/card_raised_elevation"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                app:layout_constraintTop_toBottomOf="@id/category">
-
-            <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-                                                         android:layout_height="wrap_content"
-                                                         android:layout_margin="@dimen/activity_horizontal_margin">
-
-
-                <TextView android:layout_width="0dp"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/budget_text"
-                          tools:text="Budget"
-                          style="@style/Base.TextAppearance.AppCompat.Subhead"
-                          app:layout_constraintStart_toStartOf="parent"
-                          app:layout_constraintEnd_toStartOf="@id/guideline2"
-                          app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                        android:id="@+id/budget"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toEndOf="@id/guideline2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="$ 25Milion"/>
-
-                <TextView
-                        android:id="@+id/revenue_text"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/budget_text"
-                        app:layout_constraintStart_toStartOf="@id/budget_text"
-                        app:layout_constraintEnd_toStartOf="@id/guideline2"
-                        android:layout_marginTop="@dimen/card_raised_elevation"
-                        tools:text="Revenue"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"/>
-
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                          app:layout_constraintStart_toEndOf="@id/guideline2"
-                          app:layout_constraintEnd_toEndOf="parent"
-                          app:layout_constraintTop_toTopOf="@id/revenue_text"
-                          tools:text="$ 25Milion"
-                          app:layout_constraintTop_toBottomOf="@id/budget"/>
-
-
-                <android.support.constraint.Guideline
-                        android:id="@+id/guideline2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.4"/>
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.constraint.Guideline
-                android:id="@+id/guideline"
+        <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.4"/>
+                android:layout_height="match_parent"
+                app:visibleGone="@{resource.status != Status.LOADING &amp;&amp; count>0}">
+
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/guideline"
+                    android:scaleType="fitXY"
+                    app:imageUrl="@{item.backdropPath}"/>
+
+            <ScrollView android:layout_width="0dp" android:layout_height="0dp"
+                        app:layout_constraintTop_toBottomOf="@id/guideline"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                             android:layout_height="wrap_content">
+                    <TextView android:id="@+id/overview"
+                              android:layout_width="0dp" android:layout_height="wrap_content"
+                              app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintEnd_toEndOf="parent"
+                              app:layout_constraintTop_toTopOf="parent"
+                              tools:text="@string/app_name"
+                              android:text="@{item.overview}"
+                              style="@style/Base.TextAppearance.AppCompat.Caption"
+                              android:layout_margin="@dimen/card_raised_elevation"/>
+
+                    <TextView android:id="@+id/minutes"
+                              style="@style/Base.TextAppearance.AppCompat.Subhead"
+                              android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintTop_toBottomOf="@id/overview"
+                              app:layout_constraintEnd_toStartOf="@id/release_date"
+                              android:layout_margin="@dimen/activity_horizontal_margin"
+                              android:text='@{item.runtime + " " + @string/minutes}'
+                              tools:text="142 minutes"/>
+
+                    <TextView android:id="@+id/release_date"
+                              style="@style/Base.TextAppearance.AppCompat.Subhead"
+                              android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              app:layout_constraintTop_toBottomOf="@id/overview"
+                              app:layout_constraintStart_toEndOf="@id/minutes"
+                              app:layout_constraintEnd_toStartOf="@id/rating"
+                              android:layout_margin="@dimen/activity_horizontal_margin"
+                              app:timeStamp="@{item.releaseDate}"
+                              app:format="@{@string/date_format}"
+                              app:emptyTxt="@{@string/empty_text}"
+                              tools:text="21 April 2018"/>
+
+                    <FrameLayout android:id="@+id/rating"
+                                 android:layout_width="0dp" android:layout_height="wrap_content"
+                                 app:layout_constraintEnd_toEndOf="parent"
+                                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                                 android:layout_marginRight="@dimen/activity_horizontal_margin"
+                                 app:layout_constraintStart_toEndOf="@id/release_date"
+                                 app:layout_constraintTop_toTopOf="@id/minutes">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                tools:text="9.3"
+                                android:background="@color/colorPrimary"
+                                android:textColor="@android:color/white"
+                                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                                android:paddingLeft="@dimen/card_raised_elevation"
+                                android:paddingStart="@dimen/card_raised_elevation"
+                                android:paddingEnd="@dimen/card_raised_elevation"
+                                android:paddingRight="@dimen/card_raised_elevation"
+                                android:gravity="end"
+                                android:text='@{" "+item.voteAverage+" "}'
+                                android:layout_gravity="end"/>
 
 
-    </android.support.constraint.ConstraintLayout>
+                    </FrameLayout>
+
+
+                    <TextView android:id="@+id/category"
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              app:layout_constraintStart_toStartOf="@id/minutes"
+                              app:layout_constraintTop_toBottomOf="@id/rating"
+                              app:layout_constraintEnd_toStartOf="@id/language"
+                              android:layout_marginTop="@dimen/activity_horizontal_margin"
+                              app:genresList="@{item.genres}"
+                              tools:text="Drama"/>
+
+                    <TextView android:id="@+id/language" android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              app:layout_constraintEnd_toEndOf="@id/rating"
+                              app:layout_constraintTop_toTopOf="@id/category"
+                              android:paddingLeft="@dimen/card_raised_elevation"
+                              android:paddingStart="@dimen/card_raised_elevation"
+                              android:paddingEnd="@dimen/card_raised_elevation"
+                              android:paddingRight="@dimen/card_raised_elevation"
+                              android:gravity="end"
+                              android:background="@android:color/holo_red_light"
+                              tools:text="EN"
+                              app:upperString="@{item.originalLanguage}"
+                              android:textColor="@android:color/white"/>
+
+                    <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:cardBackgroundColor="@android:color/white"
+                            app:cardCornerRadius="@dimen/card_raised_elevation"
+                            android:layout_margin="@dimen/activity_horizontal_margin"
+                            app:layout_constraintTop_toBottomOf="@id/category">
+
+                        <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                                     android:layout_height="wrap_content"
+                                                                     android:layout_margin="@dimen/activity_horizontal_margin">
+
+
+                            <TextView android:layout_width="0dp"
+                                      android:layout_height="wrap_content"
+                                      android:id="@+id/budget_text"
+                                      tools:text="Budget"
+                                      android:text="@string/budget"
+                                      style="@style/Base.TextAppearance.AppCompat.Subhead"
+                                      app:layout_constraintStart_toStartOf="parent"
+                                      app:layout_constraintEnd_toStartOf="@id/guideline2"
+                                      app:layout_constraintTop_toTopOf="parent"/>
+
+                            <TextView
+                                    android:id="@+id/budget"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintStart_toEndOf="@id/guideline2"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:text='@{"$"+converter.amountFormat(item.budget,0)}'
+                                    tools:text="$ 25Milion"/>
+
+                            <TextView
+                                    android:id="@+id/revenue_text"
+                                    android:layout_width="0dp" android:layout_height="wrap_content"
+                                    app:layout_constraintTop_toBottomOf="@id/budget_text"
+                                    app:layout_constraintStart_toStartOf="@id/budget_text"
+                                    app:layout_constraintEnd_toStartOf="@id/guideline2"
+                                    android:layout_marginTop="@dimen/card_raised_elevation"
+                                    tools:text="Revenue"
+                                    android:text="@string/revenue"
+                                    style="@style/Base.TextAppearance.AppCompat.Subhead"/>
+
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                                      app:layout_constraintStart_toEndOf="@id/guideline2"
+                                      app:layout_constraintEnd_toEndOf="parent"
+                                      app:layout_constraintTop_toTopOf="@id/revenue_text"
+                                      tools:text="$ 25Milion"
+                                      android:text='@{"$"+converter.amountFormat(item.revenue, 0)}'
+                                      app:layout_constraintTop_toBottomOf="@id/budget"/>
+
+
+                            <android.support.constraint.Guideline
+                                    android:id="@+id/guideline2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintGuide_percent="0.4"/>
+
+                        </android.support.constraint.ConstraintLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </android.support.constraint.ConstraintLayout>
+            </ScrollView>
+
+            <android.support.constraint.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.4"/>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <include
+                android:id="@+id/progress"
+                layout="@layout/layout_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:resource="@{resource}"/>
+
+        <include
+                layout="@layout/layout_no_data"
+                app:count="@{count}"
+                app:resource="@{resource}"
+                app:displayText="@{@string/image_description}"/>
+
+    </FrameLayout>
 
 
 </layout>
