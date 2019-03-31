@@ -8,8 +8,10 @@ import sandip.example.com.databinding.objects.MovieDetailsResponse
 import sandip.example.com.databinding.repo.AppRepository
 import sandip.example.com.databinding.utils.remoteUtils.AbsentedLiveData
 import sandip.example.com.databinding.utils.remoteUtils.Resource
+import sandip.example.com.testing.OpenForTesting
 import javax.inject.Inject
 
+@OpenForTesting
 class MovieDetailsViewModel @Inject constructor(
     var repo: AppRepository
 ) : ViewModel() {

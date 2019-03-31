@@ -9,8 +9,10 @@ import sandip.example.com.databinding.remote.WebServices
 import sandip.example.com.databinding.utils.helperUtils.AppExecutors
 import sandip.example.com.databinding.utils.remoteUtils.NetworkBoundResource
 import sandip.example.com.databinding.utils.remoteUtils.Resource
+import sandip.example.com.testing.OpenForTesting
 import javax.inject.Inject
 
+@OpenForTesting
 class AppRepository @Inject constructor(
     private val webservice: WebServices,
     private val executor: AppExecutors,

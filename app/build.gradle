@@ -3,9 +3,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-allopen'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'sandip.example.com.testing.OpenClass'
+}
+
 
 android {
     compileSdkVersion 28
@@ -22,7 +29,19 @@ android {
         }
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "sandip.example.com.databinding.utils.AppTestRunner"
+
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+
     }
     buildTypes {
         release {
@@ -41,10 +60,12 @@ android {
     }
 }
 
+jacoco {
+    toolVersion = "0.7.4+"
+}
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:support-v4:28.0.0'
-    testImplementation 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation deps.room.runtime
 
     implementation deps.lifecycle.runtime
@@ -83,7 +104,50 @@ dependencies {
     })
     kapt deps.lifecycle.compiler
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
-    implementation 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation(deps.espresso.core, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation(deps.espresso.contrib, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation deps.support.test_runner
+    androidTestImplementation deps.espresso.intents
+    testImplementation deps.mockito.core
+    testImplementation(deps.arch_core.testing, {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
+    androidTestImplementation deps.mockito.core, { exclude group: 'net.bytebuddy' }
+
+    task fullCoverageReport(type: JacocoReport) {
+        dependsOn 'createDebugCoverageReport'
+        dependsOn 'testDebugUnitTest'
+        reports {
+            xml.enabled = true
+            html.enabled = true
+        }
+
+        def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
+                          '**/*Test*.*', 'android/**/*.*',
+                          '**/*_MembersInjector.class',
+                          '**/Dagger*Component.class',
+                          '**/Dagger*Component$Builder.class',
+                          '**/*_*Factory.class',
+                          '**/*ComponentImpl.class',
+                          '**/*SubComponentBuilder.class']
+        def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+        def mainSrc = "${project.projectDir}/src/main/java"
+
+        sourceDirectories = files([mainSrc])
+        classDirectories = files([debugTree])
+        executionData = fileTree(dir: "$buildDir", includes: [
+                "jacoco/testDebugUnitTest.exec",
+                "outputs/code-coverage/connected/*coverage.ec"
+        ])
+    }
 }
